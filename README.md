@@ -1,3 +1,10 @@
+'''
+pip install google-adk
+install ollama with curl: 
+curl -fsSL https://ollama.com/download/ollama-linux-amd64.tar.zst \
+    | sudo tar x -C /usr
+pull gemma4:26b model
+'''
 Vim is the human's workspace, while ADK supplies the agent intelligence and tool-use layer. In the current Vim co-writer, we're using a **fairly small subset of Google ADK**. The Vim integration itself is *not* an ADK feature; Vimscript handles the editor communication, while ADK handles the agent reasoning/tool loop.
 
 Here are the pieces we're using.
