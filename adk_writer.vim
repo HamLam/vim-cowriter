@@ -1,5 +1,5 @@
 " ============================================================
-" ADK Writer
+" Place this file inside the ~/.vim/plugin directory 
 "
 " Vim <-> Google ADK co-writing bridge
 "
