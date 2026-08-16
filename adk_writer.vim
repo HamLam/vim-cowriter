@@ -1,6 +1,6 @@
 " ============================================================
 " Place this file inside the ~/.vim/plugin directory 
-"
+" Set the path of the python executable and the python ADK bridge
 " Vim <-> Google ADK co-writing bridge
 "
 " Vim owns the document buffer.
@@ -25,11 +25,11 @@ endif
 
 " Python executable from the Google ADK virtual environment.
 let g:adk_writer_python =
-            \ '/projects/standard/support/shared/lamx0031/google_adk/bin/python'
+            \ '/path-to-the/google_adk/bin/python'
 
 " Python ADK bridge.
 let g:adk_writer_bridge =
-            \ '/users/9/lamx0031/vim-adk-writer/adk_bridge.py'
+            \ '/path-to-the/vim-adk-writer/adk_bridge.py'
 
 
 " ============================================================
