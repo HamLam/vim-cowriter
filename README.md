@@ -434,7 +434,8 @@ search_web()
 
 we give it another capability.
 
-That's the core ADK design pattern: **LLM \+ instructions \+ tools \+ runtime**. Google's current ADK examples similarly construct an `Agent` with an instruction, model, and Python tools. ([Google GitHub](https://google.github.io/agents-cli/guide/hands-on-tutorial/?utm_source=chatgpt.com))
+That's the core ADK design pattern: **LLM \+ instructions \+ tools \+ runtime**. Google's current ADK examples similarly construct an `Agent` with an instruction, model, and Python tools. ([Google GitHub](https://google.github.io/agents-cli/guide/hands-on-tutorial/?utm_source=chatgpt.com)).
+``` Co-Authored by GPT-5.5``` 
 
 
 
