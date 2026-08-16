@@ -10,7 +10,7 @@ Vim is the human's workspace, while ADK supplies the agent intelligence and tool
 
 Here are the pieces we're using.
 ### **0\. `Vim` / `+channel and +job`**
-You want Vim compiled with job/channel support. Vim's job_start() can launch a separate process asynchronously and out_cb can receive its stdout. ch_sendraw() can send data back to that process.
+You want Vim compiled with job/channel support. Vim's `job_start()` can launch a separate process asynchronously and `out_cb` can receive its stdout. `ch_sendraw()` can send data back to that process.
 
 ### **1\. `Agent` / `LlmAgent`**
 
