@@ -1,18 +1,26 @@
-```py
+## Setup
+
+```bash
 pip install google-adk
-install ollama with curl: 
+
+# Install Ollama
 curl -fsSL https://ollama.com/download/ollama-linux-amd64.tar.zst \
     | sudo tar x -C /usr
-pull gemma4:26b model
+
+# Pull the Gemma 4 26B model
+ollama pull gemma4:26b
 ```
 
-Vim is the human's workspace, while ADK supplies the agent intelligence and tool-use layer. In the current Vim co-writer, we're using a **fairly small subset of Google ADK**. The Vim integration itself is *not* an ADK feature; Vimscript handles the editor communication, while ADK handles the agent reasoning/tool loop.
+## Architecture
 
-Here are the pieces we're using.
-### **0\. `Vim` / `+channel and +job`**
-You want Vim compiled with job/channel support. Vim's `job_start()` can launch a separate process asynchronously and `out_cb` can receive its stdout. `ch_sendraw()` can send data back to that process.
+Vim is the human's workspace, while Google ADK supplies the agent intelligence and tool-use layer. This co-writer uses a **focused subset of Google ADK**—specifically agents, custom tools, and the execution runtime. Here's how the pieces fit together:
 
-### **1\. `Agent` / `LlmAgent`**
+---
+
+### **0. `Vim` / `+channel` and `+job`**
+You want Vim compiled with job/channel support. Vim's `job_start()` can launch a separate process asynchronously and `out_cb` can receive its stdout. `ch_sendraw()` can send data back to that proc[...]
+
+### **1. `Agent` / `LlmAgent`**
 
 In `adk_bridge.py` we create:
 
@@ -39,11 +47,11 @@ write a joke
 
 and decides how to accomplish it.
 
-ADK's agent model is specifically designed around an LLM agent that can use tools. Google's current documentation describes `LlmAgent` as the LLM-based agent type. ([Google GitHub](https://google.github.io/adk-docs/api-reference/java/com/google/adk/agents/package-use.html?utm_source=chatgpt.com))
+ADK's agent model is specifically designed around an LLM agent that can use tools. Google's current documentation describes `LlmAgent` as the LLM-based agent type. ([Google GitHub](https://google.[...]
 
 ---
 
-### **2\. Custom tools**
+### **2. Custom tools**
 
 This is probably the **most important ADK feature we're using**.
 
@@ -70,7 +78,7 @@ tools=[
 ]
 ```
 
-ADK turns those Python functions into tools available to the LLM. Google's documentation explicitly describes ADK tools as ordinary Python functions whose descriptions/docstrings tell the model when and how to use them. ([Google GitHub](https://google.github.io/agents-cli/guide/hands-on-tutorial/?utm_source=chatgpt.com))
+ADK turns those Python functions into tools available to the LLM. Google's documentation explicitly describes ADK tools as ordinary Python functions whose descriptions/docstrings tell the model wh[...]
 
 This gives us the really interesting architecture:
 
@@ -96,7 +104,7 @@ It knows:
 
 ---
 
-### **3\. Tool calling / agent reasoning loop**
+### **3. Tool calling / agent reasoning loop**
 
 Suppose you enter:
 
@@ -166,7 +174,7 @@ That **tool-use loop** is the central agent behavior we're exploiting.
 
 ---
 
-### **4\. `Runner`**
+### **4. `Runner`**
 
 We're also using:
 
@@ -206,7 +214,7 @@ This becomes increasingly important as we add more sophisticated behavior.
 
 ---
 
-### **5\. Sessions**
+### **5. Sessions**
 
 Our prototype also uses:
 
@@ -224,7 +232,7 @@ await session_service.create_session(
 )
 ```
 
-A session gives ADK a place to associate the interaction and its events/context. ADK's session services manage sessions and their associated events; `InMemorySessionService` is the in-memory implementation. ([Google GitHub](https://google.github.io/adk-docs/api-reference/java/com/google/adk/sessions/BaseSessionService.html?utm_source=chatgpt.com))
+A session gives ADK a place to associate the interaction and its events/context. ADK's session services manage sessions and their associated events; `InMemorySessionService` is the in-memory impl[...]
 
 **However, our current implementation isn't taking much advantage of this yet.**
 
@@ -270,7 +278,7 @@ That's where ADK's session capabilities become much more useful.
 
 ---
 
-### **6\. LiteLLM model integration**
+### **6. LiteLLM model integration**
 
 We're also using:
 
@@ -434,8 +442,7 @@ search_web()
 
 we give it another capability.
 
-That's the core ADK design pattern: **LLM \+ instructions \+ tools \+ runtime**. Google's current ADK examples similarly construct an `Agent` with an instruction, model, and Python tools. ([Google GitHub](https://google.github.io/agents-cli/guide/hands-on-tutorial/?utm_source=chatgpt.com)).
+That's the core ADK design pattern: **LLM \+ instructions \+ tools \+ runtime**. Google's current ADK examples similarly construct an `Agent` with an instruction, model, and Python tools. ([Googl[...]
 ``` Co-Authored by GPT-5.5``` 
-
 
 
